@@ -19,16 +19,18 @@ public class Transaction {
     private String category;
     private String description;
     private LocalDate transactionDate;
+    private String importReference;
 
     protected Transaction(){
     }
 
-    public Transaction(TransactionType type, BigDecimal amount, String category, String description, LocalDate transactionDate) {
+    public Transaction(TransactionType type, BigDecimal amount, String category, String description, LocalDate transactionDate, String importReference) {
         this.type = type;
         this.amount = amount;
         this.category = category;
         this.description = description;
         this.transactionDate = transactionDate;
+        this.importReference = importReference;
     }
 
     public Long getId() {
@@ -54,6 +56,8 @@ public class Transaction {
     public LocalDate getTransactionDate() {
         return transactionDate;
     }
+
+    public String getImportReference() { return importReference; }
 }
 
 

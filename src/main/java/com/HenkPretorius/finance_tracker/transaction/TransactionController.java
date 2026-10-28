@@ -24,7 +24,8 @@ public class TransactionController {
                 request.amount(),
                 request.category(),
                 request.description(),
-                request.transactionDate()
+                request.transactionDate(),
+                null
         );
         return repository.save(transaction);
     }
