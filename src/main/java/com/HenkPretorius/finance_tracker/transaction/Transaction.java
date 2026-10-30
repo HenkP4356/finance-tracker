@@ -58,6 +58,14 @@ public class Transaction {
     }
 
     public String getImportReference() { return importReference; }
+
+    public void update(TransactionType type, BigDecimal amount, String category, String description, LocalDate transactionDate) {
+        this.type = type;
+        this.amount = amount;
+        this.category = category;
+        this.description = description;
+        this.transactionDate = transactionDate;
+    }
 }
 
 
