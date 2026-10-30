@@ -1,0 +1,1 @@
+ALTER TABLE transactions ADD COLUMN import_reference VARCHAR(255) UNIQUE;
