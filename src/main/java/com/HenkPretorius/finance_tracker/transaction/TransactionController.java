@@ -58,4 +58,21 @@ public class TransactionController {
         List<String> lines = content.lines().toList();
         return new ImportResult(importService.importFNB(lines));
     }
+
+    @PutMapping("/{id}")
+    public Transaction update(@PathVariable Long id, @Valid @RequestBody TransactionRequest request) {
+        Transaction transaction = repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        transaction.update(
+                request.type(),
+                request.amount(),
+                request.category(),
+                request.description(),
+                request.transactionDate()
+        );
+
+        return repository.save(transaction);
+    }
+
 }
