@@ -53,4 +53,23 @@ function createCell(text) {
     return cell;
 }
 
+document.getElementById('import-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const file = document.getElementById('import-file').files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await fetch('/api/transactions/import', {
+        method: 'POST',
+        body: formData
+    });
+
+    const result = await response.json();
+
+    document.getElementById('import-message').textContent = `Imported ${result.imported} new transactions`;
+
+    loadTransactions();
+})
+
 loadTransactions();
