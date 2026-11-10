@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Tracker</title>
+    <link rel="stylesheet" href=style.css>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <h1>Financial Tracker</h1>
+
+    <section class="summary">
+        <div class="card">
+            <span class="label">Income</span>
+            <span class="value income" id="total-income"></span>
+        </div>
+        <div class="card">
+            <span class="label">Expense</span>
+            <span class="value expense" id="total-expense"></span>
+        </div>
+        <div class="card">
+            <span class="label">Balance</span>
+            <span class="value" id="total-balance"></span>
+        </div>
+    </section>
+
+    <form id="import-form" class="import">
+        <input type="file" id="import-file" accept=".csv" required>
+        <button type="submit">Import</button>
+        <span id="import-message"></span>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th class="amount">Amount</th>
+                <th>Type</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="transactions"></tbody>
+    </table>
+</body>
