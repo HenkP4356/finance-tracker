@@ -26,6 +26,11 @@ async function loadTransactions() {
 
         row.appendChild(createCell(transaction.type));
 
+        const actionsCell = document.createElement('td');
+        actionsCell.appendChild(createButton('Category', () => editCategory(transaction)));
+        actionsCell.appendChild(createButton('Delete', () => deleteTransaction(transaction)));
+        row.appendChild(actionsCell);
+
         tbody.appendChild(row);
     }
 
@@ -47,10 +52,48 @@ async function loadTransactions() {
     document.getElementById('total-balance').textContent = rand.format(balance);
 }
 
+async function deleteTransaction(transaction) {
+    if (!confirm(`Delete "${transaction.description}"?`)) {
+        return;
+    }
+
+    await fetch(`/api/transactions/${transaction.id}`, { method: 'DELETE' });
+    loadTransactions();
+}
+
+async function editCategory(transaction){
+    const category = prompt('New Category: ', transaction.category);
+
+    if (category === null || category === '') {
+        return;
+    }
+
+    await fetch(`/api/transactions/${transaction.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            type: transaction.type,
+            amount: transaction.amount,
+            category: category.trim(),
+            description: transaction.description,
+            transactionDate: transaction.transactionDate
+        })
+    });
+
+    loadTransactions();
+}
+
 function createCell(text) {
     const cell = document.createElement('td');
     cell.textContent = text;
     return cell;
+}
+
+function createButton(label, onClick) {
+    const button = document.createElement('button');
+    button.textContent = label;
+    button.addEventListener('click', onClick);
+    return button;
 }
 
 document.getElementById('import-form').addEventListener('submit', async (event) => {
